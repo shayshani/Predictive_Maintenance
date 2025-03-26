@@ -1,0 +1,3 @@
+anomaly_detection_PSM_TimesNet_PSM_ftM_sl100_ll48_pl0_dm64_nh8_el2_dl1_df64_expand2_dc4_fc1_ebtimeF_dtTrue_test_0  
+Accuracy : 0.9856, Precision : 0.9850, Recall : 0.9629, F-score : 0.9738 
+
