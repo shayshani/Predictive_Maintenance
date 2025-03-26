@@ -414,13 +414,14 @@ class Exp_Anomaly_Detection(Exp_Basic):
 
     def random_seq(self, setting, threshold, test = 1):
         print("starting sampling process")
+        print(setting)
         test_data, test_loader = self._get_data(flag='test')
         train_data, train_loader = self._get_data(flag='train')
 
         print('loading model')
         self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
 
-        save_folder = '/home/shays/Projects/Time-Series-Library/comparison_plots'
+        save_folder = f'/home/shays/Projects/Time-Series-Library/comparison_plots_{setting}'
 
         # Create the folder if it doesn't exist
         if not os.path.exists(save_folder):
@@ -438,15 +439,14 @@ class Exp_Anomaly_Detection(Exp_Basic):
             for i, batch_x in enumerate(test_loader):
                 start_time = time.time()
                 batch_x = batch_x.float().to(self.device)
-
                 # print(batch_x[:,:5,1])
                 # reconstruction
 
                 outputs = self.model(batch_x, None, None, None)
                 # criterion
-                rand_index = random.randint(0, batch_x.shape[1]-1)
-                window = batch_x[0].cpu().numpy()
-                prediction = outputs[0].cpu().numpy()
+                rand_index = random.randint(0, batch_x.shape[0]-1)
+                window = batch_x[rand_index].cpu().numpy()
+                prediction = outputs[rand_index].cpu().numpy()
 
 
                 self.save_comparison_plot(window, prediction, n, save_folder, threshold, test_data)
