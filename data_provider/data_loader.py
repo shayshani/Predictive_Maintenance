@@ -1,4 +1,6 @@
 import os
+import pdb
+
 import numpy as np
 import pandas as pd
 import glob
@@ -388,7 +390,10 @@ class Dataset_M4(Dataset):
             insample_mask[i, -len(ts):] = 1.0
         return insample, insample_mask
 
-
+'''
+Hello dear Priel, I hope you have an amazing day. This part of the code is the data loader for you univariate data. It fits the data with standard scaler. Splits the data to 80% train 
+and 20% test. Validation set is last 20% of train set.
+'''
 class UniVarLoader(Dataset):
     def __init__(self, args, root_path, win_size, step=1, flag="train"):
         self.flag = flag
@@ -401,12 +406,16 @@ class UniVarLoader(Dataset):
         data = np.nan_to_num(data)
 
         data = data.T
-
+        #print(data[:10])
         data, test_data = train_test_split(data, test_size=0.2, shuffle=False)
         self.scaler.fit(data)
-        data = self.scaler.transform(data)
 
-        self.scaler.fit(test_data)
+        data = self.scaler.transform(data)
+        #print(data[:10])
+
+
+
+        #self.scaler.fit(test_data)
         test_data = self.scaler.transform(test_data)
 
         self.test = test_data
