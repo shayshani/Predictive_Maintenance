@@ -19,6 +19,10 @@ data_dict = {
     'UNI': UniVarLoader
 }
 
+'''
+Notice for flag shuffle, for train put the shuffle = False in comment otherwise leave it.
+'''
+
 
 def data_provider(args, flag):
     Data = data_dict[args.data]
