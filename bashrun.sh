@@ -22,3 +22,4 @@ python -u run.py \
   --batch_size 80 \
   --train_epochs 20
 
+  #Notice for the flag shuffle in data_factory-if training put it on the condition, otherwise make it False
